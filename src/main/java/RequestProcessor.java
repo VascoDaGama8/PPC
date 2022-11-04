@@ -14,28 +14,58 @@ class RequestProcessor extends Thread //for multi-threaded server
     }
     public void run()
     {
-        try
-        {
+        try {
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             String x = "We will send you equation\n";
             String y;
-            ArrayList <String> buf = new ArrayList<>();
+            equation eq;
+            int i = 0;
+            int n = 0;
+            ArrayList<String> buf = new ArrayList<>();
             out.write(x);
             long time = System.currentTimeMillis();
             while (true) {
-                System.out.println("n");
-                out.write("1\n");
+                eq = new equation();
+                out.write(eq.equation + "\n");
                 out.flush();
-                time = System.nanoTime();
-
-                Thread.sleep(3000);
+                n++;
+                System.out.println(eq.equation);
+                System.out.println("I'm listening");
+                Thread.sleep(3001);
                 if((y = in.readLine()) != null){
-                    buf.add(y);
                     System.out.println(y);
+                    if(Integer.parseInt(y) == eq.xGet()){
+                        i++;
+                        System.out.println("True");
+                    }
+                    else{
+                        i = 0;
+                        System.out.println("Answer is wrong, bye\n");
+                        out.write("Answer is wrong, bye\n");
+                        out.flush();
+                        out.close();
+                        in.close();
+                        socket.close();
+                    }
                 }
-                System.out.println("k");
+                if (n != 10 && i == 10){
+                    n = 0;
+                    System.out.println("No answer\n");
+                    out.write("No answer\n");
+                    out.flush();
+                    out.close();
+                    in.close();
+                    socket.close();
+                }
+                if(n == 10 && i == 10){
+                    out.write("flag\n");
+                    out.flush();
+                    out.close();
+                    in.close();
+                    socket.close();
+                }
             }
 //            String inputLine;
 //            while ((inputLine = in.readLine()) != null) {
@@ -48,8 +78,10 @@ class RequestProcessor extends Thread //for multi-threaded server
 //            in.close();
 //            out.flush();
 //            socket.close();
-        } catch (IOException | InterruptedException ioException) {
+        } catch (IOException ioException) {
             ioException.printStackTrace();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }
