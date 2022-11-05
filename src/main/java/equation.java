@@ -102,63 +102,58 @@ public class equation {
                 9739 ,	9743 ,	9749 ,	9767 ,	9769 ,	9781 ,	9787 ,	9791 ,	9803 ,	9811 ,	9817 ,	9829,
                 9833 ,	9839 ,	9851 ,	9857 ,	9859 ,	9871 ,	9883 ,	9887 ,	9901 ,	9907 ,	9923 ,	9929,
                 9931 ,	9941 ,	9949 ,	9967 ,	9973};
-//        a = r.nextInt(1000)+1;
-//        p = prost[r.nextInt(92)];
-//        b = r.nextInt(1000);
-        a = 543;
-        b = 143;
-        p = 1637;
-        x = this.find_x(this.a, this.b, this.p);
+        a = r.nextInt(1000)+1;
+        p = prost[r.nextInt(92)];
+        b = r.nextInt(1000);
+        x = this.shag(this.a, this.b, this.p);
         equation = ("a = " + ((Integer) a).toString() +  " b = " + ((Integer) b).toString() + " p = " + ((Integer) p).toString() + " x = " + ((Integer) x).toString());
     }
-    public static int find_x(int a, int b, int p){
-        int f = 1;
-        int  x = 0;
-        while(f!=b){
-            f *= a;
-            f %= p;
-            x++;
-        }
-        return x;
-    }
-//    public static int mod(int a, int deg, int p){
-//        int b = 1;
-//        while(deg != 0){
-//            b*=a;
-//            b%=p;
-//            deg--;
+//    public static int find_x(int a, int b, int p){
+//        int f = 1;
+//        int  x = 0;
+//        while(f!=b){
+//            f *= a;
+//            f %= p;
+//            x++;
 //        }
-//        return b;
-//    }
-//    public static int shag(int a, int b, int p){
-//        System.out.println(System.currentTimeMillis());
-//        int m, k;
-//        m = k = (int)(Math.sqrt(p))+1;
-//        int x;
-//        ArrayList<Integer> a_deg = new ArrayList<>();
-//        ArrayList<Integer> b_deg = new ArrayList<>();
-//        for(int i = 1; i < k+1; i++){;
-//            a_deg.add(mod(a, i*m, p));
-//        }
-//        for(int i = 0; i < m; i++){;
-//            b_deg.add(b*mod(a, i, p)%p);
-//        }
-//        int i = 0;
-//        int j = 0;
-//        for(i = 0; i < k; i++){
-//            for(j = 0; j < m; j++){
-//                if(a_deg.get(i) == b_deg.get(j)){
-//                    break;
-//                }
-//            }
-//            if(j != m && a_deg.get(i) == b_deg.get(j)){
-//                i++;
-//                break;
-//            }
-//        }
-//        x = i*m-j;
-//        System.out.println(System.currentTimeMillis());
 //        return x;
 //    }
+    public static int mod(int a, int deg, int p){
+        int b = 1;
+        while(deg != 0){
+            b*=a;
+            b%=p;
+            deg--;
+        }
+        return b;
+    }
+    public static int shag(int a, int b, int p){
+        int m, k;
+        m = k = (int)(Math.sqrt(p))+1;
+        int x;
+        ArrayList<Integer> a_deg = new ArrayList<>();
+        ArrayList<Integer> b_deg = new ArrayList<>();
+        for(int i = 1; i < k+1; i++){;
+            a_deg.add(mod(a, i*m, p));
+        }
+        for(int i = 0; i < m; i++){;
+            b_deg.add(b*mod(a, i, p)%p);
+        }
+        int i = 0;
+        int j = 0;
+        for(i = 0; i < k; i++){
+            for(j = 0; j < m; j++){
+                if(a_deg.get(i).equals(b_deg.get(j))){
+                    break;
+                }
+            }
+            if(j != m && a_deg.get(i).equals(b_deg.get(j))){
+                i++;
+                break;
+            }
+        }
+        x = i*m-j;
+        return x;
+    }
 
 }
