@@ -18,32 +18,34 @@ class RequestProcessor extends Thread //for multi-threaded server
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            String x = "We will send you equation\n";
+            String x = "We will send you equation type of a^x = b mod p \n";
             String y;
             equation eq;
             int i = 0;
             int n = 0;
-            ArrayList<String> buf = new ArrayList<>();
             out.write(x);
-            long time = System.currentTimeMillis();
+            long time;
             while (true) {
                 eq = new equation();
+                time = System.currentTimeMillis();
+                while(System.currentTimeMillis() - time < 3000);
                 out.write(eq.equation + "\n");
                 out.flush();
                 n++;
                 System.out.println(eq.equation);
                 System.out.println("I'm listening");
-                Thread.sleep(3001);
+                time = System.currentTimeMillis();
+//                Thread.sleep(3001);
                 if((y = in.readLine()) != null){
                     System.out.println(y);
-                    if(Integer.parseInt(y) == eq.xGet()){
+                    if(Integer.parseInt(y) == eq.xGet() && System.currentTimeMillis() - time <= 3003){
                         i++;
                         System.out.println("True");
                     }
                     else{
                         i = 0;
-                        System.out.println("Answer is wrong, bye\n");
-                        out.write("Answer is wrong, bye\n");
+                        System.out.println("Answer is wrong or time is over, bye\n");
+                        out.write("Answer is wrong or time is over, bye\n");
                         out.flush();
                         out.close();
                         in.close();
@@ -67,21 +69,8 @@ class RequestProcessor extends Thread //for multi-threaded server
                     socket.close();
                 }
             }
-//            String inputLine;
-//            while ((inputLine = in.readLine()) != null) {
-//                if (".".equals(inputLine)) {
-//                    out.println("bye");
-//                    break;
-//                }
-//                out.println(inputLine);
-//            }
-//            in.close();
-//            out.flush();
-//            socket.close();
         } catch (IOException ioException) {
             ioException.printStackTrace();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 }
