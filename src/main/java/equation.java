@@ -106,7 +106,7 @@ public class equation {
         p = prost[r.nextInt(92)];
         b = r.nextInt(1000);
         x = this.shag(this.a, this.b, this.p);
-        equation = ("a = " + ((Integer) a).toString() +  " b = " + ((Integer) b).toString() + " p = " + ((Integer) p).toString() + " x = " + ((Integer) x).toString());
+        equation = ("a = " + ((Integer) a).toString() +  " b = " + ((Integer) b).toString() + " p = " + ((Integer) p).toString());
     }
 //    public static int find_x(int a, int b, int p){
 //        int f = 1;
