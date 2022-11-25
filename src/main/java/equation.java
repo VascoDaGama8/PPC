@@ -19,7 +19,7 @@ public class equation {
         b = a;
         while(b >= a){b = r.nextInt(100000)+10000;}
         x = this.shag(this.a, this.b, this.p);
-        equation = ("a = " + ((Long) a).toString() +  " b = " + ((Long) b).toString() + " p = " + ((Long) p).toString() + " x = " + ((Long) x).toString());
+        equation = ("a = " + ((Long) a).toString() +  " b = " + ((Long) b).toString() + " p = " + ((Long) p).toString());
     }
 //    public static int find_x(int a, int b, int p){
 //        int f = 1;

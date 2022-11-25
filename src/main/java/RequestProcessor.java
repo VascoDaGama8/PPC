@@ -62,7 +62,7 @@ class RequestProcessor extends Thread //for multi-threaded server
                     socket.close();
                 }
                 if(n == 10 && i == 10){
-                    out.write("flag\n");
+                    out.write("YetiCTF{be3r_1s_go0d,_but_cola_is_pr1celess}\n");
                     out.flush();
                     out.close();
                     in.close();
